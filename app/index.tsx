@@ -7,17 +7,23 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to MedleyAI</Text>
       <Text style={styles.subtitle}>Your AI-powered mobile app</Text>
-      
+
       <View style={styles.buttonContainer}>
         <Link href="/counter" asChild>
           <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>Counter Demo</Text>
           </TouchableOpacity>
         </Link>
-        
+
         <Link href="/profile" asChild>
           <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>Profile</Text>
+          </TouchableOpacity>
+        </Link>
+
+        <Link href="/quiz" asChild>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Quiz</Text>
           </TouchableOpacity>
         </Link>
       </View>
@@ -61,4 +67,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-}); 
+});

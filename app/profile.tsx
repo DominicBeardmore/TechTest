@@ -9,7 +9,7 @@ export default function ProfileScreen() {
         <View style={styles.avatar}>
           <Text style={styles.avatarText}>JD</Text>
         </View>
-        
+
         <Text style={styles.name}>John Doe</Text>
         <Text style={styles.email}>john.doe@example.com</Text>
         <Text style={styles.role}>Mobile Developer</Text>
@@ -34,7 +34,7 @@ export default function ProfileScreen() {
         <TouchableOpacity style={styles.actionButton}>
           <Text style={styles.actionButtonText}>Edit Profile</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={[styles.actionButton, styles.secondaryButton]}>
           <Text style={styles.secondaryButtonText}>Settings</Text>
         </TouchableOpacity>
@@ -155,4 +155,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-}); 
+});

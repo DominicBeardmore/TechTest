@@ -3,20 +3,13 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useCounter } from '../src/hooks';
 
 export default function CounterScreen() {
-  const {
-    count,
-    increment,
-    decrement,
-    reset,
-    setValue,
-    isAtMin,
-    isAtMax,
-  } = useCounter({
-    initialValue: 0,
-    min: -10,
-    max: 10,
-    step: 1,
-  });
+  const { count, increment, decrement, reset, setValue, isAtMin, isAtMax } =
+    useCounter({
+      initialValue: 0,
+      min: -10,
+      max: 10,
+      step: 1,
+    });
 
   const handleSetValue = () => {
     Alert.prompt(
@@ -26,7 +19,7 @@ export default function CounterScreen() {
         { text: 'Cancel', style: 'cancel' },
         {
           text: 'Set',
-          onPress: (value) => {
+          onPress: value => {
             const numValue = parseInt(value || '0', 10);
             if (!isNaN(numValue)) {
               setValue(numValue);
@@ -44,7 +37,7 @@ export default function CounterScreen() {
       <View style={styles.counterContainer}>
         <Text style={styles.counterLabel}>Current Count:</Text>
         <Text style={styles.counterValue}>{count}</Text>
-        
+
         <View style={styles.boundaryInfo}>
           <Text style={[styles.boundaryText, isAtMin && styles.boundaryActive]}>
             Min: -10 {isAtMin && '✓'}
@@ -59,7 +52,11 @@ export default function CounterScreen() {
         <TouchableOpacity
           testID="decrement-button"
           accessibilityLabel="decrement"
-          style={[styles.button, styles.decrementButton, isAtMin && styles.disabledButton]}
+          style={[
+            styles.button,
+            styles.decrementButton,
+            isAtMin && styles.disabledButton,
+          ]}
           onPress={decrement}
           disabled={isAtMin}
         >
@@ -69,7 +66,11 @@ export default function CounterScreen() {
         <TouchableOpacity
           testID="increment-button"
           accessibilityLabel="increment"
-          style={[styles.button, styles.incrementButton, isAtMax && styles.disabledButton]}
+          style={[
+            styles.button,
+            styles.incrementButton,
+            isAtMax && styles.disabledButton,
+          ]}
           onPress={increment}
           disabled={isAtMax}
         >
@@ -78,11 +79,17 @@ export default function CounterScreen() {
       </View>
 
       <View style={styles.actionButtons}>
-        <TouchableOpacity style={[styles.button, styles.resetButton]} onPress={reset}>
+        <TouchableOpacity
+          style={[styles.button, styles.resetButton]}
+          onPress={reset}
+        >
           <Text style={styles.buttonText}>Reset</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.button, styles.setButton]} onPress={handleSetValue}>
+        <TouchableOpacity
+          style={[styles.button, styles.setButton]}
+          onPress={handleSetValue}
+        >
           <Text style={styles.buttonText}>Set Value</Text>
         </TouchableOpacity>
       </View>
@@ -199,4 +206,4 @@ const styles = StyleSheet.create({
     color: '#666',
     marginBottom: 5,
   },
-}); 
+});
