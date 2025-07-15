@@ -13,6 +13,8 @@ interface QuestionProps {
 
 interface Question {
   title: string;
+  heading: string;
+  description: string;
   questionData: QuestionData;
 }
 
@@ -21,6 +23,7 @@ interface QuestionData {
   options: Options[];
   categories: string[];
   correctAnswer: string;
+  explanation: string;
 }
 
 interface Options {
@@ -28,8 +31,8 @@ interface Options {
 }
 
 const Question = (question: QuestionProps) => {
-  const { title, questionData } = question.question;
-  const { options, questionType, correctAnswer } = questionData;
+  const { title, heading, description, questionData } = question.question;
+  const { options, questionType, correctAnswer, explanation} = questionData;
   const [response, setResponse] = useState<string | null>(null);
 
   const attempted = useRef(0);
@@ -38,7 +41,9 @@ const Question = (question: QuestionProps) => {
   useEffect(() => {
     attempted.current = 0;
     setResponse(null);
-  }, [question.index]);
+  }, [question.index]); // Also reset when question title changes
+
+
 
   const onChangeText = (text: string) => {
     setResponse(text);
@@ -58,7 +63,7 @@ const Question = (question: QuestionProps) => {
         // First wrong attempt - give second chance
         Alert.alert(
           'Incorrect',
-          'That\'s not quite right. You have one more chance to answer correctly.',
+          heading,
           [{text: 'Try Again', onPress: () => setResponse(null)}]
         );
       } else {
@@ -75,13 +80,6 @@ const Question = (question: QuestionProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-
-      {/* Attempt indicator */}
-      {attempted.current > 0 && (
-        <Text style={styles.attemptIndicator}>
-          Attempts: {attempted.current}/2
-        </Text>
-      )}
 
       {questionType === 'mcq' ? (
         options.map((option, index) => (
@@ -113,11 +111,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-
-  attemptIndicator: {
+  heading: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  description: {
     fontSize: 14,
-    color: '#666',
-    marginBottom: 10,
-    fontStyle: 'italic',
+    color: 'gray',
   },
 });
