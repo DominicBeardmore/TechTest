@@ -1,6 +1,8 @@
 import React from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
+import 'react-native-reanimated';
 
 export default function RootLayout() {
   return (

@@ -27,7 +27,8 @@
     },
     "scheme": "medleyai",
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-localization"
     ]
   }
 }
