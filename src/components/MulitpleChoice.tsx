@@ -1,14 +1,36 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 interface MulitpleChoiceProps {
   option: string;
+  status: 'success' | 'error' | 'neutral' | 'selected';
+  optionRef: React.RefObject<number>;
+  selectedRef: React.RefObject<number>;
   onSelectOption: (option: string) => void;
 }
 
-const MulitpleChoice = ({ option, onSelectOption }: MulitpleChoiceProps) => {
+const MulitpleChoice = ({ option, onSelectOption, status, optionRef, selectedRef }: MulitpleChoiceProps) => {
+  const buttonContainerBackground = {
+    "success": "#E4FFB7",
+    "error": "#FDEEEE",
+    "neutral": "#FCFCFF",
+    "selected": "#05B0FF",
+  }
+
+  const buttonContainerStyle = useMemo(() => {
+    return {
+      color: '#fff',
+      fontSize: 16,
+      fontWeight: 'bold',
+      backgroundColor: buttonContainerBackground[status],
+    }
+  }, [status]);
+
   return (
-    <Pressable style={[styles.container, styles.notSelected]} onPress={() => onSelectOption(option)}>
+    <Pressable style={[styles.container, buttonContainerStyle]} onPress={() => {
+      selectedRef.current = optionRef.current;
+      onSelectOption(option)
+    }}>
       <Text>{option}</Text>
     </Pressable>
   );

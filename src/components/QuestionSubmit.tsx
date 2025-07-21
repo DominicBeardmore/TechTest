@@ -4,7 +4,7 @@ import { Pressable, StyleSheet, View, Text } from 'react-native';
 interface QuestionSubmitProps {
   onPress: () => void;
   title?: string;
-  status?: 'success' | 'error' | 'neutral';
+  status?: 'success' | 'error' | 'neutral' | 'selected';
 }
 
 export default function QuestionSubmit({ onPress, title = 'Submit', status = 'neutral' }: QuestionSubmitProps) {
@@ -13,6 +13,7 @@ export default function QuestionSubmit({ onPress, title = 'Submit', status = 'ne
     "success": "#E4FFB7",
     "error": "#FDEEEE",
     "neutral": "#FCFCFF",
+    "selected": "#05B0FF",
   }
 
   const buttonContainerStyle = useMemo(() => {
@@ -28,6 +29,7 @@ export default function QuestionSubmit({ onPress, title = 'Submit', status = 'ne
     "success": "#FCFCFF",
     "error": "#FCFCFF",
     "neutral": "#BCBCBE",
+    "selected": "#05B0FF",
   }
 
   const buttonTextColorStyle = useMemo(() => {
@@ -40,6 +42,7 @@ export default function QuestionSubmit({ onPress, title = 'Submit', status = 'ne
     "success": "#E4FFB7",
     "error": "#FF4B4C",
     "neutral": "#F0F0F0",
+    "selected": "#05B0FF",
   }
 
   const buttonStyle = useMemo(() => {
@@ -50,7 +53,6 @@ export default function QuestionSubmit({ onPress, title = 'Submit', status = 'ne
       backgroundColor: buttonBackground[status],
     }
   }, [status]);
-
 
   return (
     <View style={[styles.container, buttonContainerStyle]}>

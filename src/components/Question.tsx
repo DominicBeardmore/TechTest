@@ -6,6 +6,7 @@ import { useMarking } from '../hooks/useMarking';
 import { Step } from '../types/steps';
 import QuestionTitle from './QuestionTitle';
 import QuestionSubmit from './QuestionSubmit';
+import MultipleChoices from './MultipleChoices';
 
 interface QuestionProps {
   index: number;
@@ -34,19 +35,23 @@ interface Options {
 }
 
 const Question = (question: QuestionProps) => {
-  const { title, heading, description, questionData } = question.question;
-  const { options, questionType, correctAnswer} = questionData;
+  const { title, questionData } = question.question;
+  const { options, questionType, correctAnswer } = questionData;
   const [response, setResponse] = useState<string | null>(null);
+  const [status, setStatus] = useState<'success' | 'error' | 'neutral' | 'selected'>('neutral');
 
   const attempted = useRef(0);
-
+  const selectedOption = useRef(0);
   // Reset attempt counter when question changes
   useEffect(() => {
     attempted.current = 0;
+    setStatus('neutral');
+    selectedOption.current = 0;
     setResponse(null);
   }, [question.index]); // Also reset when question title changes
 
   const onChangeText = (text: string) => {
+    setStatus('neutral');
     setResponse(text);
   };
 
@@ -58,23 +63,16 @@ const Question = (question: QuestionProps) => {
     attempted.current += 1;
 
     if (result) {
-      Alert.alert('Correct', '', [{text: 'Next', onPress: () => question.onNext()}]);
+      setStatus('success');
+      Alert.alert('Correct', '', [{ text: 'Next', onPress: () => question.onNext() }]);
     } else {
-      if (attempted.current === 1) {
-        // First wrong attempt - give second chance
-        Alert.alert(
-          'Incorrect',
-          heading,
-          [{text: 'Try Again', onPress: () => setResponse(null)}]
-        );
-      } else {
-        // Second wrong attempt - show correct answer
-        Alert.alert(
-          'Incorrect',
-          `The correct answer is: ${correctAnswer}`,
-          [{text: 'Next', onPress: () => question.onNext()}]
-        );
-      }
+      setStatus('error');
+      // if (attempted.current === 1) {
+      //   // First wrong attempt - give second chance
+
+      // } else {
+      //   // Second wrong attempt - show correct answer
+      // }
     }
   };
 
@@ -83,20 +81,14 @@ const Question = (question: QuestionProps) => {
       <View style={styles.questionContainer}>
         <QuestionTitle title={title} type={questionType} />
         <View style={styles.questionContent}>
-        {questionType === 'mcq' ? (
-          options.map((option, index) => (
-          <MulitpleChoice
-              key={index}
-              option={option.option}
-              onSelectOption={onChangeText}
-            />
-          ))
-        ) : (
-          <ShortAnswer onChangeText={onChangeText} />
-        )}
+          {questionType === 'mcq' ? (
+            <MultipleChoices options={options} onChangeText={onChangeText} selectedOption={selectedOption} status={status} />
+          ) : (
+            <ShortAnswer onChangeText={onChangeText} />
+          )}
         </View>
       </View>
-     <QuestionSubmit onPress={() => checkAnswer()} />
+      <QuestionSubmit status={status} onPress={status === 'success' ? () => question.onNext() : () => checkAnswer()} />
     </View>
   );
 };
