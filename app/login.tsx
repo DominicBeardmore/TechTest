@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { useEmailValidation } from '../src/hooks/useEmailValidation';
 import { loginUser, registerUser } from '../src/services/auth';
+import { router } from 'expo-router';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -27,6 +28,7 @@ export default function LoginScreen() {
     setIsLoading(false);
     if (result.success) {
       Alert.alert('Login successful!');
+      router.push('/');
     } else {
       setError(result.error || 'Login failed.');
     }
@@ -55,6 +57,7 @@ export default function LoginScreen() {
     setIsLoading(false);
     if (result.success) {
       Alert.alert('Registration successful!');
+      await loginUser(email, password);
     } else {
       setError(result.error || 'Registration failed.');
     }

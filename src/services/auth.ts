@@ -17,8 +17,10 @@ export async function loginUser(email: string, password: string): Promise<{ succ
     return { success: false, error: 'Incorrect password.' };
   }
 
-  // Set user as logged in
-  login(user as User);
+  // create a bearer token
+  const token = { userId: user.id, expiry: Date.now() + 1000 * 60 * 60 };
+
+  login(user as User, JSON.stringify(token));
   return { success: true };
 }
 
