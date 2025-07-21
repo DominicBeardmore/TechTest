@@ -3,10 +3,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import MulitpleChoice from './MulitpleChoice';
 import ShortAnswer from './ShortAnswer';
 import { useMarking } from '../hooks/useMarking';
+import { Step } from '../types/steps';
 
 interface QuestionProps {
   index: number;
-  question: Question;
+  question: Step;
   onNext: () => void;
   onPrevious: () => void;
 }
@@ -19,7 +20,7 @@ interface Question {
 }
 
 interface QuestionData {
-  questionType: 'mcq' | 'short_answer';
+  questionType: 'mcq' | 'sort';
   options: Options[];
   categories: string[];
   correctAnswer: string;
@@ -32,7 +33,7 @@ interface Options {
 
 const Question = (question: QuestionProps) => {
   const { title, heading, description, questionData } = question.question;
-  const { options, questionType, correctAnswer, explanation} = questionData;
+  const { options, questionType, correctAnswer} = questionData;
   const [response, setResponse] = useState<string | null>(null);
 
   const attempted = useRef(0);

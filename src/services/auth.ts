@@ -1,6 +1,7 @@
 import { useUserStore } from '../store/user';
 import { useAccountsStore } from '../store/accounts';
 import { User } from '../types/user';
+import { fetchSteps } from './steps';
 
 export async function loginUser(email: string, password: string): Promise<{ success: boolean; error?: string }> {
   // Get users from the accounts store
@@ -21,6 +22,7 @@ export async function loginUser(email: string, password: string): Promise<{ succ
   const token = { userId: user.id, expiry: Date.now() + 1000 * 60 * 60 };
 
   login(user as User, JSON.stringify(token));
+  await fetchSteps();
   return { success: true };
 }
 
