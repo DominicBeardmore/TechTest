@@ -5,7 +5,7 @@ import React from 'react';
 export default function Layout() {
 
   const isBearerTokenValid = () => {
-    return true;
+    return false;
   }
 
   // set this to some condition

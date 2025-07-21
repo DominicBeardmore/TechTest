@@ -6,6 +6,7 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isRegister, setIsRegister] = useState(false);
 
   function validateEmail(email: string) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -33,9 +34,39 @@ export default function LoginScreen() {
     }, 1000);
   };
 
+  const handleRegister = () => {
+    setError('');
+    if (!email || !password) {
+      setError('Email and password are required.');
+      return;
+    }
+    if (!validateEmail(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+    setIsLoading(true);
+    // Simulate registration
+    setTimeout(() => {
+      setIsLoading(false);
+      if (email === 'test@example.com') {
+        setError('This email is already registered.');
+      } else {
+        Alert.alert('Registration successful!');
+      }
+    }, 1000);
+  };
+
+  const handleSubmit = () => {
+    if (isRegister) {
+      handleRegister();
+    } else {
+      handleLogin();
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>{isRegister ? 'Register' : 'Login'}</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -54,7 +85,26 @@ export default function LoginScreen() {
         editable={!isLoading}
       />
       {error ? <Text style={styles.error}>{error}</Text> : null}
-      <Button title={isLoading ? 'Logging in...' : 'Login'} onPress={handleLogin} disabled={isLoading} />
+      <View style={styles.buttonRow}>
+        <Button
+          title={'Login'}
+          onPress={() => setIsRegister(r => !r)}
+          disabled={isLoading}
+        />
+        <View style={{ width: 12 }} />
+        <Button
+          title={'Register'}
+          onPress={() => setIsRegister(r => !r)}
+          disabled={isLoading}
+        />
+      </View>
+      <View style={styles.submitButtonContainer}>
+        <Button
+          title={isLoading ? 'Submitting...' : 'Submit'}
+          onPress={handleSubmit}
+          disabled={isLoading}
+        />
+      </View>
     </View>
   );
 }
@@ -87,5 +137,15 @@ const styles = StyleSheet.create({
     color: '#FF3B30',
     marginBottom: 16,
     fontSize: 14,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  submitButtonContainer: {
+    marginTop: 32,
+    width: '100%',
+    maxWidth: 320,
   },
 });

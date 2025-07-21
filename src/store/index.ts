@@ -8,6 +8,9 @@ interface User {
   name: string;
   email: string;
   avatar?: string;
+  totalSessions: number,
+  currentStreak: number,
+  accuracyPercentage: number
 }
 
 interface UserState {
