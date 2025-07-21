@@ -13,26 +13,30 @@ export const loginSchema = z.object({
   password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
-export const registerSchema = z.object({
-  name: z.string().min(1, 'Name is required').max(50, 'Name too long'),
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-  confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-});
+export const registerSchema = z
+  .object({
+    name: z.string().min(1, 'Name is required').max(50, 'Name too long'),
+    email: z.string().email('Invalid email address'),
+    password: z.string().min(6, 'Password must be at least 6 characters'),
+    confirmPassword: z.string(),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
 
 // Counter validation schema
-export const counterSchema = z.object({
-  initialValue: z.number().int().min(-100).max(100),
-  min: z.number().int().min(-1000),
-  max: z.number().int().max(1000),
-  step: z.number().int().positive(),
-}).refine((data) => data.min < data.max, {
-  message: "Min value must be less than max value",
-  path: ["min"],
-});
+export const counterSchema = z
+  .object({
+    initialValue: z.number().int().min(-100).max(100),
+    min: z.number().int().min(-1000),
+    max: z.number().int().max(1000),
+    step: z.number().int().positive(),
+  })
+  .refine(data => data.min < data.max, {
+    message: 'Min value must be less than max value',
+    path: ['min'],
+  });
 
 // Profile validation schema
 export const profileSchema = z.object({
@@ -54,10 +58,13 @@ export function validateForm<T>(schema: z.ZodSchema<T>, data: unknown): T {
   return schema.parse(data);
 }
 
-export function validateFormSafe<T>(schema: z.ZodSchema<T>, data: unknown): { success: true; data: T } | { success: false; errors: z.ZodError } {
+export function validateFormSafe<T>(
+  schema: z.ZodSchema<T>,
+  data: unknown
+): { success: true; data: T } | { success: false; errors: z.ZodError } {
   const result = schema.safeParse(data);
   if (result.success) {
     return { success: true, data: result.data };
   }
   return { success: false, errors: result.error };
-} 
+}

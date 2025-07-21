@@ -17,7 +17,9 @@ interface UseCounterReturn {
   isAtMax: boolean;
 }
 
-export const useCounter = (options: UseCounterOptions = {}): UseCounterReturn => {
+export const useCounter = (
+  options: UseCounterOptions = {}
+): UseCounterReturn => {
   const {
     initialValue = 0,
     min = -Infinity,
@@ -28,14 +30,14 @@ export const useCounter = (options: UseCounterOptions = {}): UseCounterReturn =>
   const [count, setCount] = useState(initialValue);
 
   const increment = useCallback(() => {
-    setCount((prevCount) => {
+    setCount(prevCount => {
       const newCount = prevCount + step;
       return newCount <= max ? newCount : prevCount;
     });
   }, [step, max]);
 
   const decrement = useCallback(() => {
-    setCount((prevCount) => {
+    setCount(prevCount => {
       const newCount = prevCount - step;
       return newCount >= min ? newCount : prevCount;
     });
@@ -45,11 +47,14 @@ export const useCounter = (options: UseCounterOptions = {}): UseCounterReturn =>
     setCount(initialValue);
   }, [initialValue]);
 
-  const setValue = useCallback((value: number) => {
-    if (value >= min && value <= max) {
-      setCount(value);
-    }
-  }, [min, max]);
+  const setValue = useCallback(
+    (value: number) => {
+      if (value >= min && value <= max) {
+        setCount(value);
+      }
+    },
+    [min, max]
+  );
 
   const isAtMin = min !== -Infinity && count === min;
   const isAtMax = max !== Infinity && count === max;
@@ -63,4 +68,4 @@ export const useCounter = (options: UseCounterOptions = {}): UseCounterReturn =>
     isAtMin,
     isAtMax,
   };
-}; 
+};

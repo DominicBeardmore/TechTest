@@ -11,7 +11,8 @@ export const queryClient = new QueryClient({
 });
 
 // Base API configuration
-export const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'https://api.example.com';
+export const API_BASE_URL =
+  process.env.EXPO_PUBLIC_API_URL || 'https://api.example.com';
 
 // API response types
 export interface ApiResponse<T> {
@@ -32,7 +33,7 @@ export async function apiRequest<T>(
   options: RequestInit = {}
 ): Promise<ApiResponse<T>> {
   const url = `${API_BASE_URL}${endpoint}`;
-  
+
   try {
     const response = await fetch(url, {
       headers: {
@@ -50,28 +51,30 @@ export async function apiRequest<T>(
     return data;
   } catch (error) {
     console.error('API request failed:', error);
-    throw new Error(error instanceof Error ? error.message : 'Unknown error occurred');
+    throw new Error(
+      error instanceof Error ? error.message : 'Unknown error occurred'
+    );
   }
 }
 
 // API methods
 export const api = {
   get: <T>(endpoint: string) => apiRequest<T>(endpoint),
-  
+
   post: <T>(endpoint: string, data: any) =>
     apiRequest<T>(endpoint, {
       method: 'POST',
       body: JSON.stringify(data),
     }),
-  
+
   put: <T>(endpoint: string, data: any) =>
     apiRequest<T>(endpoint, {
       method: 'PUT',
       body: JSON.stringify(data),
     }),
-  
+
   delete: <T>(endpoint: string) =>
     apiRequest<T>(endpoint, {
       method: 'DELETE',
     }),
-}; 
+};

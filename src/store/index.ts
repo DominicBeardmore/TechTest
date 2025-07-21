@@ -46,7 +46,7 @@ const secureStorage = {
 
 export const useUserStore = create<UserState>()(
   persist(
-    (set) => ({
+    set => ({
       user: null,
       isLoading: false,
       isAuthenticated: false,
@@ -59,7 +59,10 @@ export const useUserStore = create<UserState>()(
     {
       name: 'user-storage',
       storage: createJSONStorage(() => secureStorage),
-      partialize: (state) => ({ user: state.user, isAuthenticated: state.isAuthenticated }),
+      partialize: state => ({
+        user: state.user,
+        isAuthenticated: state.isAuthenticated,
+      }),
     }
   )
-); 
+);

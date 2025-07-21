@@ -6,7 +6,8 @@ export const isAndroid = Platform.OS === 'android';
 export const isWeb = Platform.OS === 'web';
 
 // Screen utilities
-export const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+export const { width: screenWidth, height: screenHeight } =
+  Dimensions.get('window');
 
 export const isTablet = () => {
   const { width, height } = Dimensions.get('window');
@@ -54,7 +55,10 @@ export const formatPercentage = (value: number, decimals = 1): string => {
 };
 
 // Date utilities
-export const formatDate = (date: Date | string, options?: Intl.DateTimeFormatOptions): string => {
+export const formatDate = (
+  date: Date | string,
+  options?: Intl.DateTimeFormatOptions
+): string => {
   const dateObj = typeof date === 'string' ? new Date(date) : date;
   return new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
@@ -81,8 +85,9 @@ export const formatRelativeTime = (date: Date | string): string => {
   if (diffInSeconds < 60) return 'Just now';
   if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;
   if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`;
-  if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)}d ago`;
-  
+  if (diffInSeconds < 2592000)
+    return `${Math.floor(diffInSeconds / 86400)}d ago`;
+
   return formatDate(dateObj);
 };
 
@@ -99,13 +104,19 @@ export const unique = <T>(array: T[]): T[] => {
   return [...new Set(array)];
 };
 
-export const groupBy = <T, K extends keyof any>(array: T[], key: (item: T) => K): Record<K, T[]> => {
-  return array.reduce((groups, item) => {
-    const group = key(item);
-    groups[group] = groups[group] || [];
-    groups[group].push(item);
-    return groups;
-  }, {} as Record<K, T[]>);
+export const groupBy = <T, K extends keyof any>(
+  array: T[],
+  key: (item: T) => K
+): Record<K, T[]> => {
+  return array.reduce(
+    (groups, item) => {
+      const group = key(item);
+      groups[group] = groups[group] || [];
+      groups[group].push(item);
+      return groups;
+    },
+    {} as Record<K, T[]>
+  );
 };
 
 // Object utilities
@@ -175,9 +186,17 @@ export const lightenColor = (hex: string, percent: number): string => {
   const num = parseInt(hex.replace('#', ''), 16);
   const amt = Math.round(2.55 * percent);
   const R = (num >> 16) + amt;
-  const G = (num >> 8 & 0x00FF) + amt;
-  const B = (num & 0x0000FF) + amt;
-  return '#' + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
-    (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
-    (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
-}; 
+  const G = ((num >> 8) & 0x00ff) + amt;
+  const B = (num & 0x0000ff) + amt;
+  return (
+    '#' +
+    (
+      0x1000000 +
+      (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
+      (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
+      (B < 255 ? (B < 1 ? 0 : B) : 255)
+    )
+      .toString(16)
+      .slice(1)
+  );
+};

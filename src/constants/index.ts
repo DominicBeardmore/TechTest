@@ -16,27 +16,27 @@ export const COLORS = {
   primary: '#007AFF',
   primaryDark: '#0056CC',
   primaryLight: '#4DA3FF',
-  
+
   // Secondary colors
   secondary: '#5856D6',
   secondaryDark: '#3A3A8C',
   secondaryLight: '#7A79E6',
-  
+
   // Success colors
   success: '#34C759',
   successDark: '#28A745',
   successLight: '#5CDB7F',
-  
+
   // Warning colors
   warning: '#FF9500',
   warningDark: '#E6850E',
   warningLight: '#FFB340',
-  
+
   // Error colors
   error: '#FF3B30',
   errorDark: '#DC3545',
   errorLight: '#FF6B6B',
-  
+
   // Neutral colors
   white: '#FFFFFF',
   black: '#000000',
@@ -52,12 +52,12 @@ export const COLORS = {
     800: '#1F2937',
     900: '#111827',
   },
-  
+
   // Background colors
   background: '#F5F5F5',
   surface: '#FFFFFF',
   card: '#FFFFFF',
-  
+
   // Text colors
   text: '#1F2937',
   textSecondary: '#6B7280',
@@ -175,4 +175,4 @@ export const APP_CONFIG = {
   version: '1.0.0',
   buildNumber: '1',
   bundleIdentifier: 'com.medleyai.app',
-}; 
+};

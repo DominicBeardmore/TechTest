@@ -24,27 +24,32 @@ A modern React Native application built with Expo, TypeScript, and best practice
 ## 🛠 Tech Stack
 
 ### Core Dependencies
+
 - `expo` - React Native framework
 - `expo-router` - File-based navigation
 - `react-native` - Mobile app framework
 - `typescript` - Type safety
 
 ### State Management & Data
+
 - `zustand` - Lightweight state management
 - `@tanstack/react-query` - Data fetching and caching
 - `@react-native-async-storage/async-storage` - Local storage
 
 ### UI & Animation
+
 - `react-native-reanimated` - High-performance animations
 - `react-native-gesture-handler` - Touch handling
 - `expo-image` - Optimized image loading
 - `react-native-safe-area-context` - Safe area management
 
 ### Validation & Utilities
+
 - `zod` - Schema validation
 - `react-native-i18n` - Internationalization
 
 ### Development Tools
+
 - `jest` - Testing framework
 - `@testing-library/react-native` - Component testing
 - `eslint` - Code linting
@@ -80,6 +85,7 @@ app/                    # Expo Router pages
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js (v18 or higher)
 - npm or yarn
 - Expo CLI
@@ -88,29 +94,33 @@ app/                    # Expo Router pages
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd MedleyAI
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Start the development server**
+
    ```bash
    npm start
    ```
 
 4. **Run on device/simulator**
+
    ```bash
    # iOS
    npm run ios
-   
+
    # Android
    npm run android
-   
+
    # Web
    npm run web
    ```
@@ -118,6 +128,7 @@ app/                    # Expo Router pages
 ## 🧪 Testing
 
 ### Run Tests
+
 ```bash
 # Run all tests
 npm test
@@ -130,12 +141,14 @@ npm run test:coverage
 ```
 
 ### Test Structure
+
 - `src/__tests__/hooks/` - Hook tests
 - `src/__tests__/screens/` - Screen component tests
 
 ## 🔧 Development
 
 ### Code Quality
+
 ```bash
 # Lint code
 npm run lint
@@ -151,6 +164,7 @@ npm run format:check
 ```
 
 ### Available Scripts
+
 - `npm start` - Start Expo development server
 - `npm run ios` - Run on iOS simulator
 - `npm run android` - Run on Android emulator
@@ -162,24 +176,28 @@ npm run format:check
 ## 📦 Key Dependencies Explained
 
 ### State Management (Zustand)
+
 - Lightweight alternative to Redux
 - Built-in TypeScript support
 - Persistence with AsyncStorage
 - Example usage in `src/store/index.ts`
 
 ### Data Fetching (React Query)
+
 - Automatic caching and background updates
 - Optimistic updates
 - Error handling and retries
 - Example setup in `src/services/api/index.ts`
 
 ### Validation (Zod)
+
 - Runtime type checking
 - Form validation
 - Type inference
 - Example schemas in `src/utils/validation.ts`
 
 ### Navigation (Expo Router)
+
 - File-based routing
 - Type-safe navigation
 - Deep linking support
@@ -188,6 +206,7 @@ npm run format:check
 ## 🎨 Styling & Theming
 
 The app uses a comprehensive design system with:
+
 - Consistent color palette (`src/constants/index.ts`)
 - Typography scale
 - Spacing system
@@ -217,6 +236,7 @@ The app uses a comprehensive design system with:
 ## 🚀 Deployment
 
 ### Building for Production
+
 ```bash
 # Build for iOS
 eas build --platform ios
@@ -226,7 +246,9 @@ eas build --platform android
 ```
 
 ### Environment Variables
+
 Create a `.env` file with:
+
 ```
 EXPO_PUBLIC_API_URL=your_api_url_here
 ```
@@ -247,6 +269,7 @@ This project is licensed under the MIT License.
 ## 🆘 Support
 
 For support and questions:
+
 - Check the [Expo documentation](https://docs.expo.dev/)
 - Review the [React Native documentation](https://reactnative.dev/)
-- Open an issue in this repository 
+- Open an issue in this repository

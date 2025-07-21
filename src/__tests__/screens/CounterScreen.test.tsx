@@ -30,32 +30,32 @@ describe('CounterScreen', () => {
 
   it('renders correctly with counter value', () => {
     const { getByText } = render(<CounterScreen />);
-    
+
     expect(getByText('Current Count:')).toBeTruthy();
     expect(getByText('5')).toBeTruthy();
   });
 
   it('calls increment when + button is pressed', () => {
     const { getByText } = render(<CounterScreen />);
-    
+
     fireEvent.press(getByText('+'));
-    
+
     expect(mockCounterHook.increment).toHaveBeenCalledTimes(1);
   });
 
   it('calls decrement when - button is pressed', () => {
     const { getByText } = render(<CounterScreen />);
-    
+
     fireEvent.press(getByText('-'));
-    
+
     expect(mockCounterHook.decrement).toHaveBeenCalledTimes(1);
   });
 
   it('calls reset when Reset button is pressed', () => {
     const { getByText } = render(<CounterScreen />);
-    
+
     fireEvent.press(getByText('Reset'));
-    
+
     expect(mockCounterHook.reset).toHaveBeenCalledTimes(1);
   });
 
@@ -89,8 +89,8 @@ describe('CounterScreen', () => {
     });
 
     const { getByText } = render(<CounterScreen />);
-    
+
     expect(getByText('Min: -10 ✓')).toBeTruthy();
     expect(getByText('Max: 10')).toBeTruthy();
   });
-}); 
+});
