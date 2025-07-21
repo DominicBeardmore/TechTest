@@ -10,31 +10,16 @@ export default function RootLayout() {
       <StatusBar style="auto" />
       <Stack>
         <Stack.Screen
-          name="index"
+          name="login"
           options={{
-            title: 'Home',
-            headerShown: true,
+            title: 'Login',
+            headerShown: false,
           }}
         />
         <Stack.Screen
-          name="counter"
+          name="(auth)"
           options={{
-            title: 'Counter Demo',
-            headerShown: true,
-          }}
-        />
-        <Stack.Screen
-          name="profile"
-          options={{
-            title: 'Profile',
-            headerShown: true,
-          }}
-        />
-        <Stack.Screen
-          name="quiz"
-          options={{
-            title: 'Quiz',
-            headerShown: true,
+            headerShown: false,
           }}
         />
       </Stack>

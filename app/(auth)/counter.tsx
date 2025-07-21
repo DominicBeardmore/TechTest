@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { useCounter } from '../src/hooks';
+import { useCounter } from '../../src/hooks';
 
 export default function CounterScreen() {
   const { count, increment, decrement, reset, setValue, isAtMin, isAtMax } =

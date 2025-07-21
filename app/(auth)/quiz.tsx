@@ -1,11 +1,11 @@
 import { View, Text, Alert } from 'react-native';
 import React, { useState } from 'react';
-import Question from '../src/components/Question';
+import Question from '../../src/components/Question';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Quiz() {
   const navigation = useNavigation();
-  const questions = require('../assets/questions.json').steps;
+  const questions = require('../../assets/questions.json').steps;
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
 
