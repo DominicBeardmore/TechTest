@@ -1,4 +1,4 @@
-import { View, Text, Alert } from 'react-native';
+import { View, Text, Alert, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import Question from '../../src/components/Question';
 import { useNavigation } from '@react-navigation/native';
@@ -19,8 +19,10 @@ export default function Quiz() {
   }
 
   return (
-    <View>
-      <Text>Question {currentQuestion + 1} of {steps.length}</Text>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text>Progress bar</Text>
+      </View>
       {
         currentQuestion < steps.length - 1 ? (
           <Question
@@ -36,3 +38,22 @@ export default function Quiz() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 10,
+    padding: 10,
+    backgroundColor: '#FCFCFF',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flex: 2
+  },
+  questionNumberContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

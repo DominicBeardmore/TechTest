@@ -4,6 +4,8 @@ import MulitpleChoice from './MulitpleChoice';
 import ShortAnswer from './ShortAnswer';
 import { useMarking } from '../hooks/useMarking';
 import { Step } from '../types/steps';
+import QuestionTitle from './QuestionTitle';
+import QuestionSubmit from './QuestionSubmit';
 
 interface QuestionProps {
   index: number;
@@ -44,8 +46,6 @@ const Question = (question: QuestionProps) => {
     setResponse(null);
   }, [question.index]); // Also reset when question title changes
 
-
-
   const onChangeText = (text: string) => {
     setResponse(text);
   };
@@ -80,21 +80,23 @@ const Question = (question: QuestionProps) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-
-      {questionType === 'mcq' ? (
-        options.map((option, index) => (
-        <MulitpleChoice
-            key={index}
-            option={option.option}
-            onSelectOption={onChangeText}
-          />
-        ))
-      ) : (
-        <ShortAnswer onChangeText={onChangeText} />
-      )}
-
-      <Button onPress={() => checkAnswer()} title="Send" />
+      <View style={styles.questionContainer}>
+        <QuestionTitle title={title} type={questionType} />
+        <View style={styles.questionContent}>
+        {questionType === 'mcq' ? (
+          options.map((option, index) => (
+          <MulitpleChoice
+              key={index}
+              option={option.option}
+              onSelectOption={onChangeText}
+            />
+          ))
+        ) : (
+          <ShortAnswer onChangeText={onChangeText} />
+        )}
+        </View>
+      </View>
+     <QuestionSubmit onPress={() => checkAnswer()} />
     </View>
   );
 };
@@ -106,8 +108,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderColor: 'gray',
+    flex: 12,
   },
-
   title: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -119,5 +121,16 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 14,
     color: 'gray',
+  },
+  questionContainer: {
+    padding: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    flex: 5,
+  },
+  questionContent: {
+    flex: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
