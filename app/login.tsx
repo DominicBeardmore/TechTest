@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { useEmailValidation } from '../src/hooks/useEmailValidation';
+import { loginUser, registerUser } from '../src/services/auth';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -11,7 +12,7 @@ export default function LoginScreen() {
 
   const { validateEmail } = useEmailValidation();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setError('');
     if (!email || !password) {
       setError('Email and password are required.');
@@ -22,18 +23,16 @@ export default function LoginScreen() {
       return;
     }
     setIsLoading(true);
-    // Simulate login
-    setTimeout(() => {
-      setIsLoading(false);
-      if (email === 'test@example.com' && password === 'password') {
-        Alert.alert('Login successful!');
-      } else {
-        setError('Invalid email or password.');
-      }
-    }, 1000);
+    const result = await loginUser(email, password);
+    setIsLoading(false);
+    if (result.success) {
+      Alert.alert('Login successful!');
+    } else {
+      setError(result.error || 'Login failed.');
+    }
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     setError('');
     if (!email || !password) {
       setError('Email and password are required.');
@@ -44,15 +43,21 @@ export default function LoginScreen() {
       return;
     }
     setIsLoading(true);
-    // Simulate registration
-    setTimeout(() => {
-      setIsLoading(false);
-      if (email === 'test@example.com') {
-        setError('This email is already registered.');
-      } else {
-        Alert.alert('Registration successful!');
-      }
-    }, 1000);
+    const result = await registerUser({
+      name: email.split('@')[0],
+      email,
+      password,
+      avatar: undefined,
+      totalSessions: 0,
+      currentStreak: 0,
+      accuracyPercentage: 0,
+    });
+    setIsLoading(false);
+    if (result.success) {
+      Alert.alert('Registration successful!');
+    } else {
+      setError(result.error || 'Registration failed.');
+    }
   };
 
   const handleSubmit = () => {
