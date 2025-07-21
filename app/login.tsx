@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { useEmailValidation } from '../src/hooks/useEmailValidation';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -8,9 +9,7 @@ export default function LoginScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
 
-  function validateEmail(email: string) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
+  const { validateEmail } = useEmailValidation();
 
   const handleLogin = () => {
     setError('');
