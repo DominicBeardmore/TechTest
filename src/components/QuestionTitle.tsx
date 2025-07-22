@@ -7,38 +7,35 @@ interface QuestionTitleProps {
 }
 
 export default function QuestionTitle({ title, type }: QuestionTitleProps) {
-  return  (
+  return (
     <View style={styles.container}>
-      <Text style={styles.questionType}>{type.toUpperCase()}</Text>
+      <Text style={styles.questionType}>{type === 'mcq' ? 'Multiple Choice' : 'Sorting'}</Text>
       <Text style={styles.title}>{title}</Text>
     </View>
-    );
+  );
 }
 
 const styles = StyleSheet.create({
   title: {
     fontSize: 22,
-    flex: 1,
-    fontWeight: 'bold',
+    flex: 3,
     color: '#222',
     textAlign: 'center',
     borderWidth: 1,
-    borderColor: '#222',
-    borderRadius: 10,
+    borderColor: '#E6E6E6',
+    borderRadius: 20,
     padding: 10,
-    marginHorizontal: 10,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#F7F7FB',
   },
   container: {
-    flex: 3,
+    flex: 2,
     justifyContent: 'center',
   },
   questionType: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#222',
+    color: '#05B0FF',
     marginBottom: 12,
-    flex: 1,
-    textAlign: 'center',
+    flex: 1.5,
   },
 });

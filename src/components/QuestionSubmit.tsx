@@ -13,7 +13,7 @@ export default function QuestionSubmit({ onPress, title = 'Submit', status = 'ne
     "success": "#E4FFB7",
     "error": "#FDEEEE",
     "neutral": "#FCFCFF",
-    "selected": "#05B0FF",
+    "selected": "#DBF3FF",
   }
 
   const buttonContainerStyle = useMemo(() => {
@@ -29,7 +29,7 @@ export default function QuestionSubmit({ onPress, title = 'Submit', status = 'ne
     "success": "#FCFCFF",
     "error": "#FCFCFF",
     "neutral": "#BCBCBE",
-    "selected": "#05B0FF",
+    "selected": "#FFFFFF",
   }
 
   const buttonTextColorStyle = useMemo(() => {
@@ -39,7 +39,7 @@ export default function QuestionSubmit({ onPress, title = 'Submit', status = 'ne
   }, [status]);
 
   const buttonBackground = {
-    "success": "#E4FFB7",
+    "success": "#7CC500",
     "error": "#FF4B4C",
     "neutral": "#F0F0F0",
     "selected": "#05B0FF",
@@ -66,11 +66,11 @@ export default function QuestionSubmit({ onPress, title = 'Submit', status = 'ne
 const styles = StyleSheet.create({
   container: {
     marginTop: 16,
-    marginBottom: 8,
-    borderRadius: 30,
+    paddingBottom: 20,
     alignSelf: 'center',
-    width: '80%',
-    flex: 1,
+    width: '100%',
+    paddingHorizontal: 20,
+    flex: 1.5,
     justifyContent: 'flex-end',
   },
   button: {
@@ -84,14 +84,5 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
-  },
-  containerSuccess: {
-    backgroundColor: '#00ff00',
-  },
-  containerError: {
-    backgroundColor: '#ff0000',
-  },
-  containerNeutral: {
-    backgroundColor: '#f0f0f0',
-  },
+  }
 });

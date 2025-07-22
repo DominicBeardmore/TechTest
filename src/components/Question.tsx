@@ -97,9 +97,7 @@ export default Question;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
-    borderWidth: 1,
-    borderColor: 'gray',
+    paddingVertical: 10,
     flex: 12,
   },
   title: {
@@ -116,8 +114,6 @@ const styles = StyleSheet.create({
   },
   questionContainer: {
     padding: 10,
-    borderWidth: 1,
-    borderColor: 'gray',
     flex: 5,
   },
   questionContent: {

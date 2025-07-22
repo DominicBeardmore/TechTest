@@ -42,7 +42,6 @@ export default function Quiz() {
 const styles = StyleSheet.create({
   container: {
     flex: 10,
-    padding: 10,
     backgroundColor: '#FCFCFF',
   },
   header: {

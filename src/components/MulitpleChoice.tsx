@@ -14,6 +14,12 @@ const MulitpleChoice = ({ option, onSelectOption, status, optionRef, selectedRef
     "success": "#E4FFB7",
     "error": "#FDEEEE",
     "neutral": "#FCFCFF",
+    "selected": "#DBF3FF",
+  }
+  const buttonBorderColor = {
+    "success": "#7CC500",
+    "error": "#FF4B4C",
+    "neutral": "#F0F0F0",
     "selected": "#05B0FF",
   }
 
@@ -22,6 +28,12 @@ const MulitpleChoice = ({ option, onSelectOption, status, optionRef, selectedRef
       color: '#fff',
       fontSize: 16,
       fontWeight: 'bold',
+      borderColor: buttonBorderColor[status],
+      borderWidth: 1,
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 1,
+      shadowRadius: 1,
+      shadowColor: buttonBorderColor[status],
       backgroundColor: buttonContainerBackground[status],
     }
   }, [status]);
@@ -40,19 +52,13 @@ export default MulitpleChoice;
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderColor: 'gray',
     borderRadius: 10,
     marginBottom: 10,
-    backgroundColor: '#f0f0f0',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
     elevation: 5,
-    paddingTop: 20,
+    paddingTop: 30,
     paddingBottom: 20,
   },
   success: {
@@ -65,6 +71,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#0000ff',
   },
   notSelected: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#FCFCFF',
+    borderColor: '#E6E6E6',
+    borderWidth: 1,
   },
 });
