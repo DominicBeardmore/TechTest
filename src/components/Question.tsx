@@ -7,6 +7,7 @@ import { Step } from '../types/steps';
 import QuestionTitle from './QuestionTitle';
 import QuestionSubmit from './QuestionSubmit';
 import MultipleChoices from './MultipleChoices';
+import SortQuestion from './SortQuestion';
 
 interface QuestionProps {
   index: number;
@@ -36,7 +37,7 @@ interface Options {
 
 const Question = (question: QuestionProps) => {
   const { title, questionData } = question.question;
-  const { options, questionType, correctAnswer } = questionData;
+  const { options, questionType, correctAnswer, categories } = questionData;
   const [response, setResponse] = useState<string | null>(null);
   const [status, setStatus] = useState<'success' | 'error' | 'neutral' | 'selected'>('neutral');
 
@@ -84,7 +85,7 @@ const Question = (question: QuestionProps) => {
           {questionType === 'mcq' ? (
             <MultipleChoices options={options} onChangeText={onChangeText} selectedOption={selectedOption} status={status} />
           ) : (
-            <ShortAnswer onChangeText={onChangeText} />
+            <SortQuestion categories={categories} options={options} />
           )}
         </View>
       </View>
