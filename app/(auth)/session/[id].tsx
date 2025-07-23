@@ -48,7 +48,7 @@ export default function Session() {
 
       {
         currentQuestion < session.steps.length ? (
-          <View>
+          <View style={styles.questionContainer}>
             <View style={styles.header}>
               <Text>Progress bar</Text>
             </View>
@@ -88,5 +88,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  questionContainer: {
+    flex: 10,
+    backgroundColor: '#FCFCFF',
   },
 });

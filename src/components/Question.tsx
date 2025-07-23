@@ -35,9 +35,11 @@ interface Options {
 }
 
 const Question = (question: QuestionProps) => {
+  const cat1 = useRef<string[]>([]);
+  const cat2 = useRef<string[]>([]);
   const { sessionRef } = question;
   const { title, questionData, index } = question.question;
-  const { options, questionType, correctAnswer, categories } = questionData;
+  const { options, questionType, correctAnswer, categories, correct_answer_mapping } = questionData;
   const [response, setResponse] = useState<string | null>(null);
   const [status, setStatus] = useState<'success' | 'error' | 'neutral' | 'selected'>('neutral');
   const questionRef = useRef({
@@ -52,6 +54,8 @@ const Question = (question: QuestionProps) => {
     selectedOption.current = 0;
     questionRef.current.startTime = Date.now();
     questionRef.current.endTime = null;
+    cat1.current = [];
+    cat2.current = [];
     setStatus('neutral');
     setResponse(null);
   }, [question.index]);
@@ -62,22 +66,21 @@ const Question = (question: QuestionProps) => {
   };
 
   const checkAnswer = async () => {
+
     questionRef.current.attempted += 1;
-    const result = await useMarking({
+
+    const result = useMarking({
       question: response ?? '',
       userAnswer: correctAnswer,
+      questionType: questionType,
+      cat1: cat1.current,
+      cat2: cat2.current,
+      categories: categories ?? [],
+      correctAnswerMapping: correct_answer_mapping ?? {}
     });
 
     if (result) {
-      sessionRef.current[question.index] = {
-        timeTaken: Date.now() - questionRef.current.startTime,
-      }
-      setStatus('success');
-    } else {
-      setStatus('error');
-    }
-
-    if (result) {
+      console.log("result", result);
       setStatus('success');
       sessionRef.current[question.index] = {
         timeTaken: Date.now() - questionRef.current.startTime,
@@ -95,7 +98,7 @@ const Question = (question: QuestionProps) => {
           {questionType === 'mcq' ? (
             <MultipleChoices options={options} onChangeText={onChangeText} selectedOption={selectedOption} status={status} />
           ) : (
-            <SortQuestion categories={categories ?? []} options={options} />
+            <SortQuestion cat1={cat1} cat2={cat2} categories={categories ?? []} options={options} />
           )}
         </View>
       </View>
