@@ -5,6 +5,7 @@ interface QuestionSubmitProps {
   onPress: () => void;
   title?: string;
   status?: 'success' | 'error' | 'neutral' | 'selected';
+  onPrevious: () => void;
 }
 
 export default function QuestionSubmit({ onPress, title = 'Submit', status = 'neutral' }: QuestionSubmitProps) {

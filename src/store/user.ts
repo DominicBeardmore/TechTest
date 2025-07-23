@@ -11,6 +11,7 @@ export interface UserState {
   login: (user: User, token: string) => void;
   logout: () => void;
   setLoading: (loading: boolean) => void;
+  setUser: (user: User) => void;
 }
 
 export const useUserStore = create<UserState>()(
@@ -20,6 +21,7 @@ export const useUserStore = create<UserState>()(
       token: null,
       isLoading: false,
       isAuthenticated: false,
+      setUser: (user: User) => set({ user }),
       login: (user: User, token: string) =>
         set({ user, token, isAuthenticated: true, isLoading: false }),
       logout: () =>

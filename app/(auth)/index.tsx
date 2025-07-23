@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Link } from 'expo-router';
+import { View, Text, StyleSheet } from 'react-native';
+
+import Sessions from '../../src/components/Sessions/Sessions';
 
 export default function HomeScreen() {
   return (
@@ -9,23 +10,8 @@ export default function HomeScreen() {
       <Text style={styles.subtitle}>Your AI-powered mobile app</Text>
 
       <View style={styles.buttonContainer}>
-        <Link href="/counter" asChild>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Counter Demo</Text>
-          </TouchableOpacity>
-        </Link>
-
-        <Link href="/profile" asChild>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Profile</Text>
-          </TouchableOpacity>
-        </Link>
-
-        <Link href="/quiz" asChild>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Quiz</Text>
-          </TouchableOpacity>
-        </Link>
+        <Text>Sessions</Text>
+        <Sessions />
       </View>
     </View>
   );

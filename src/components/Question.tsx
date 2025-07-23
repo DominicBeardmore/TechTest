@@ -1,7 +1,5 @@
 import { View, Text, Button, Alert, StyleSheet } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
-import MulitpleChoice from './MulitpleChoice';
-import ShortAnswer from './ShortAnswer';
 import { useMarking } from '../hooks/useMarking';
 import { Step } from '../types/steps';
 import QuestionTitle from './QuestionTitle';
@@ -12,6 +10,7 @@ import SortQuestion from './SortQuestion';
 interface QuestionProps {
   index: number;
   question: Step;
+  sessionRef: React.RefObject<Record<number, { timeTaken: number }>>;
   onNext: () => void;
   onPrevious: () => void;
 }
@@ -36,20 +35,26 @@ interface Options {
 }
 
 const Question = (question: QuestionProps) => {
-  const { title, questionData } = question.question;
+  const { sessionRef } = question;
+  const { title, questionData, index } = question.question;
   const { options, questionType, correctAnswer, categories } = questionData;
   const [response, setResponse] = useState<string | null>(null);
   const [status, setStatus] = useState<'success' | 'error' | 'neutral' | 'selected'>('neutral');
-
-  const attempted = useRef(0);
+  const questionRef = useRef({
+    startTime: Date.now(),
+    endTime: null,
+    attempted: 0,
+  });
   const selectedOption = useRef(0);
   // Reset attempt counter when question changes
   useEffect(() => {
-    attempted.current = 0;
-    setStatus('neutral');
+    questionRef.current.attempted = 0;
     selectedOption.current = 0;
+    questionRef.current.startTime = Date.now();
+    questionRef.current.endTime = null;
+    setStatus('neutral');
     setResponse(null);
-  }, [question.index]); // Also reset when question title changes
+  }, [question.index]);
 
   const onChangeText = (text: string) => {
     setStatus('neutral');
@@ -57,23 +62,28 @@ const Question = (question: QuestionProps) => {
   };
 
   const checkAnswer = async () => {
+    questionRef.current.attempted += 1;
     const result = await useMarking({
       question: response ?? '',
       userAnswer: correctAnswer,
     });
-    attempted.current += 1;
+
+    if (result) {
+      sessionRef.current[question.index] = {
+        timeTaken: Date.now() - questionRef.current.startTime,
+      }
+      setStatus('success');
+    } else {
+      setStatus('error');
+    }
 
     if (result) {
       setStatus('success');
-      Alert.alert('Correct', '', [{ text: 'Next', onPress: () => question.onNext() }]);
+      sessionRef.current[question.index] = {
+        timeTaken: Date.now() - questionRef.current.startTime,
+      }
     } else {
       setStatus('error');
-      // if (attempted.current === 1) {
-      //   // First wrong attempt - give second chance
-
-      // } else {
-      //   // Second wrong attempt - show correct answer
-      // }
     }
   };
 
@@ -85,11 +95,18 @@ const Question = (question: QuestionProps) => {
           {questionType === 'mcq' ? (
             <MultipleChoices options={options} onChangeText={onChangeText} selectedOption={selectedOption} status={status} />
           ) : (
-            <SortQuestion categories={categories} options={options} />
+            <SortQuestion categories={categories ?? []} options={options} />
           )}
         </View>
       </View>
-      <QuestionSubmit status={status} onPress={status === 'success' ? () => question.onNext() : () => checkAnswer()} />
+      <QuestionSubmit
+        status={status}
+        onPress={status === 'success' ?
+          () => question.onNext() :
+          () => checkAnswer()
+        }
+        onPrevious={() => question.onPrevious()}
+      />
     </View>
   );
 };

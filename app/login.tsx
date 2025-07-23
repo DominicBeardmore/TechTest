@@ -5,7 +5,7 @@ import { loginUser, registerUser } from '../src/services/auth';
 import { router } from 'expo-router';
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState('Dom@test.com');
+  const [email, setEmail] = useState('Dom1@test.com');
   const [password, setPassword] = useState('test1234');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +27,6 @@ export default function LoginScreen() {
     const result = await loginUser(email, password);
     setIsLoading(false);
     if (result.success) {
-      Alert.alert('Login successful!');
       router.push('/');
     } else {
       setError(result.error || 'Login failed.');
@@ -53,6 +52,7 @@ export default function LoginScreen() {
       totalSessions: 0,
       currentStreak: 0,
       accuracyPercentage: 0,
+      sessions: [],
     });
     setIsLoading(false);
     if (result.success) {
