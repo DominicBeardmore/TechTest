@@ -33,24 +33,7 @@ export const createNewQuestions = () => {
     id: Math.random().toString(36).substring(2, 15),
     startedAt: new Date().toISOString(),
     progress: 0,
-    steps: [{
-      "index": 8,
-      "title": "Food Categories",
-      "heading": "Categorize this food item by its primary nutritional component.",
-      "description": "Understanding food categories helps in making balanced dietary choices and meal planning.",
-      "questionData": {
-        "questionType": "sort",
-        "options": [
-          {"option": "Chicken breast"}
-        ],
-        "correctAnswer": "Categorize by primary macronutrient",
-        "categories": ["Primarily Protein", "Primarily Carbohydrate"],
-        "correct_answer_mapping": {
-          "Primarily Protein": ["Chicken breast"],
-          "Primarily Carbohydrate": []
-        }
-      }
-    }],
+    steps: selectedSteps,
     score: 0,
     accuracy: 0,
     totalTime: 0,

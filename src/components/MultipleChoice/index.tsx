@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import MulitpleChoice from './MulitpleChoice';
-import { StepOption } from '../types/steps';
+import { StepOption } from '../../types/steps';
 import { Text } from 'react-native';
 
 const MultipleChoices = ({

@@ -1,11 +1,10 @@
-import { View, Text, StyleSheet } from 'react-native';
-import Animated from 'react-native-reanimated';
+import { Text, StyleSheet } from 'react-native';
 import { Draggable } from 'react-native-reanimated-dnd';
 
 export default function Item({ id, data }: { id: string, data: any }) {
 
   return (
-    <Draggable id={"id"} data={data} style={styles.container}>
+    <Draggable draggableId={id} data={data} style={styles.container}>
       <Text>{data}</Text>
     </Draggable>
   );

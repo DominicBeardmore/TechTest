@@ -1,9 +1,8 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Category from './Category';
 import Item from './Item';
-import Animated from 'react-native-reanimated';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { StepOption } from '../types/steps';
+import { StepOption } from '../../types/steps';
 import { DropProvider, Droppable } from 'react-native-reanimated-dnd';
 
 export default function SortQuestion({ categories, options, cat1, cat2 }: { categories: string[], options: StepOption[], cat1: React.RefObject<string[]>, cat2: React.RefObject<string[]> }) {

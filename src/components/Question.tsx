@@ -1,11 +1,11 @@
-import { View, Text, Button, Alert, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { useMarking } from '../hooks/useMarking';
 import { Step } from '../types/steps';
 import QuestionTitle from './QuestionTitle';
 import QuestionSubmit from './QuestionSubmit';
-import MultipleChoices from './MultipleChoices';
-import SortQuestion from './SortQuestion';
+import MultipleChoices from './MultipleChoice/';
+import SortQuestion from './Sort';
 
 interface QuestionProps {
   index: number;
@@ -66,9 +66,7 @@ const Question = (question: QuestionProps) => {
   };
 
   const checkAnswer = async () => {
-
     questionRef.current.attempted += 1;
-
     const result = useMarking({
       question: response ?? '',
       userAnswer: correctAnswer,
@@ -80,7 +78,6 @@ const Question = (question: QuestionProps) => {
     });
 
     if (result) {
-      console.log("result", result);
       setStatus('success');
       sessionRef.current[question.index] = {
         timeTaken: Date.now() - questionRef.current.startTime,
