@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     flex: 3,
     color: '#222',
+    fontWeight: 'bold',
     textAlign: 'center',
     borderWidth: 1,
     borderColor: '#E6E6E6',
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 2,
     justifyContent: 'center',
+    alignContent: 'center',
   },
   questionType: {
     fontSize: 16,

@@ -116,7 +116,7 @@ export default Question;
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 10,
-    flex: 12,
+    flex: 10,
   },
   title: {
     fontSize: 20,
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   },
   questionContainer: {
     padding: 10,
-    flex: 5,
+    flex: 7,
   },
   questionContent: {
     flex: 6,

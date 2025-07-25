@@ -5,6 +5,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useUserStore } from '../../../src/store/user';
 import { User } from '../../../src/types/user';
 import Summary from '../../../src/components/Sessions/Summary';
+import ProgressBar from '../../../src/components/ProgressBar';
 
 export default function Session() {
   const { id } = useLocalSearchParams();
@@ -45,13 +46,14 @@ export default function Session() {
 
   return (
     <View style={styles.container}>
-
+      <ProgressBar
+        currentQuestion={currentQuestion}
+        totalQuestions={session.steps.length}
+        height={30}
+      />
       {
         currentQuestion < session.steps.length ? (
           <View style={styles.questionContainer}>
-            <View style={styles.header}>
-              <Text>Progress bar</Text>
-            </View>
             <Question
               sessionRef={sessionRef}
               question={session.steps[currentQuestion]}
@@ -77,6 +79,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 10,
     backgroundColor: '#FCFCFF',
+    paddingTop: 10,
   },
   header: {
     flexDirection: 'row',
