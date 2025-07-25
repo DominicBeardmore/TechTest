@@ -46,21 +46,24 @@ export default function Session() {
 
   return (
     <View style={styles.container}>
-      <ProgressBar
-        currentQuestion={currentQuestion}
-        totalQuestions={session.steps.length}
-        height={30}
-      />
+
       {
         currentQuestion < session.steps.length ? (
           <View style={styles.questionContainer}>
-            <Question
-              sessionRef={sessionRef}
-              question={session.steps[currentQuestion]}
-              index={currentQuestion}
-              onNext={() => nextQuestion()}
-              onPrevious={() => setCurrentQuestion(currentQuestion - 1)}
+            <ProgressBar
+              currentQuestion={currentQuestion}
+              totalQuestions={session.steps.length}
+              height={30}
             />
+            <View style={styles.questionContainer}>
+              <Question
+                sessionRef={sessionRef}
+                question={session.steps[currentQuestion]}
+                index={currentQuestion}
+                onNext={() => nextQuestion()}
+                onPrevious={() => setCurrentQuestion(currentQuestion - 1)}
+              />
+            </View>
           </View>
         ) : (
           <Summary
