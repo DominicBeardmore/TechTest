@@ -11,6 +11,7 @@ interface QuestionProps {
   index: number;
   question: Step;
   sessionRef: React.RefObject<Record<number, { timeTaken: number }>>;
+  scoreRef: React.RefObject<number>;
   onNext: () => void;
   onPrevious: () => void;
 }
@@ -38,7 +39,7 @@ const Question = (question: QuestionProps) => {
   const cat1 = useRef<string[]>([]);
   const cat2 = useRef<string[]>([]);
   const { sessionRef } = question;
-  const { title, questionData, index } = question.question;
+  const { title, questionData } = question.question;
   const { options, questionType, correctAnswer, categories, correct_answer_mapping } = questionData;
   const [response, setResponse] = useState<string | null>(null);
   const [status, setStatus] = useState<'success' | 'error' | 'neutral' | 'selected'>('neutral');
@@ -82,6 +83,7 @@ const Question = (question: QuestionProps) => {
       sessionRef.current[question.index] = {
         timeTaken: Date.now() - questionRef.current.startTime,
       }
+      question.scoreRef.current += 1;
     } else {
       setStatus('error');
     }

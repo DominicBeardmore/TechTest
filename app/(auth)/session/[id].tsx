@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Button } from 'react-native';
-import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import React, { useState, useRef } from 'react';
 import Question from '../../../src/components/Question';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useUserStore } from '../../../src/store/user';
@@ -14,23 +14,24 @@ export default function Session() {
   const session = useUserStore(state => state.user?.sessions?.find(session => session.id === id));
   const [currentQuestion, setCurrentQuestion] = useState(session?.progress || 0);
   const sessionRef = useRef<Record<number, { timeTaken: number, correct: boolean, attempted: number }>>({});
-  const sessionScoreRef = useRef(0);
+  const sessionScoreRef = useRef(session?.score || 0);
+  const sessionProgressRef = useRef(session?.progress || 0);
   const totalTime = Object.values(sessionRef.current).reduce((sum, { timeTaken }) => sum + timeTaken, 0);
-  const averageTime = totalTime / (session?.steps.length || 0);
+  const averageTime = totalTime / (session?.progress || 0);
 
   const nextQuestion = () => {
     setCurrentQuestion(currentQuestion + 1);
-    sessionScoreRef.current += 1;
+    sessionProgressRef.current = currentQuestion + 1;
   }
 
   const saveSession = () => {
-    console.log(sessionScoreRef.current);
     setUser({
       ...user, sessions: user?.sessions?.map(
         s => s.id === session?.id ?
           {
             ...session,
-            completed: true,
+            progress: sessionProgressRef.current,
+            completed: sessionProgressRef.current === session?.steps.length,
             completedAt: new Date().toISOString(),
             totalTime, averageTime,
             score: sessionScoreRef.current
@@ -46,7 +47,6 @@ export default function Session() {
 
   return (
     <View style={styles.container}>
-
       {
         currentQuestion < session.steps.length ? (
           <View style={styles.questionContainer}>
@@ -54,9 +54,11 @@ export default function Session() {
               currentQuestion={currentQuestion}
               totalQuestions={session.steps.length}
               height={30}
+              onCancel={() => saveSession()}
             />
             <View style={styles.questionContainer}>
               <Question
+                scoreRef={sessionScoreRef}
                 sessionRef={sessionRef}
                 question={session.steps[currentQuestion]}
                 index={currentQuestion}

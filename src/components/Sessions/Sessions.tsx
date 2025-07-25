@@ -6,13 +6,15 @@ import { createNewQuestions } from "../../services/steps";
 
 const Session = ({ session }: { session: SessionType }) => {
   return (
-    <TouchableOpacity onPress={() => router.push(`/session/${session.id}`)}>
+    <TouchableOpacity style={{ marginBottom: 10, borderWidth: 1, borderColor: '#007AFF', borderRadius: 8, padding: 10 }} disabled={session.completed} onPress={() => router.push(`/session/${session.id}`)}>
       <Text> Session number: {session.id}</Text>
       <Text> Date: {session.startedAt}</Text>
       <Text> Score: {session.score}</Text>
-      <Text> Accuracy: {session.accuracy}</Text>
       <Text> Time: {session.totalTime}</Text>
-      <Text> Steps: {session.steps.length}</Text>
+      <Text> Average time: {session.averageTime}</Text>
+      <Text> Progress: {session.progress + "/" + session.steps.length}</Text>
+      <Text> Number of questions: {session.steps.length}</Text>
+      <Text> Completed: {session.completed ? "Yes" : "No"}</Text>
     </TouchableOpacity>
   );
 };
